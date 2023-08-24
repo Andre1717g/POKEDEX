@@ -70,7 +70,27 @@
   
       detailsOverlay.style.display = 'flex';
     }
+
+    
+    function drawPokedex() {
+      const pokemonDataArray = [];
   
+      // Función para crear las tarjetas una vez se hayan obtenido los datos de todos los Pokémon
+      function createCardsAfterFetch() {
+        pokemonDataArray.sort((a, b) => a.id - b.id);
+        pokemonDataArray.forEach(pokemonData => createPokemonCard(pokemonData));
+      }
+  
+      for (let i = 1; i <= 150; i++) {
+        fetchPokemonData(i)
+          .then(pokemonData => {
+            pokemonDataArray.push(pokemonData);
+            if (pokemonDataArray.length === 150) {
+              createCardsAfterFetch();
+            }
+          });
+      }
+    }
    
  
 
