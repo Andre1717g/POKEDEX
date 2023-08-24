@@ -70,13 +70,88 @@
         <p>Peso: ${pokemonData.weight / 10} kg</p>
         
       `;
+
+  detailsCard.innerHTML = `
+    <div class="card">
+      <div class="card-body">
+        <ul class="nav nav-tabs" id="pokemonTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="aboutTab" data-toggle="tab" href="#aboutCollapse" role="tab" aria-controls="aboutCollapse" aria-selected="true">About</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="statsTab" data-toggle="tab" href="#statsCollapse" role="tab" aria-controls="statsCollapse" aria-selected="false">Estadísticas Básicas</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="evolutionTab" data-toggle="tab" href="#evolutionCollapse" role="tab" aria-controls="evolutionCollapse" aria-selected="false">Evolución del Pokémon</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="movesTab" data-toggle="tab" href="#movesCollapse" role="tab" aria-controls="movesCollapse" aria-selected="false">Movimientos del Pokémon</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="pokemonTabContent">
+          <div class="tab-pane fade show active" id="aboutCollapse" role="tabpanel" aria-labelledby="aboutTab">
+            <p class="card-text">Tipo: ${pokemonData.types.map(type => type.type.name).join(', ')}</p>
+            <p class="card-text">Altura: ${pokemonData.height / 10} m</p>
+            <p class="card-text">Peso: ${pokemonData.weight / 10} kg</p>
+            <p class="card-text">Especie: ${pokemonData.species.name}</p>
+            <p class="card-text">Habilidades: ${pokemonData.abilities.map(ability => ability.ability.name).join(', ')}</p>
+            <p class="card-text">Debilidades: ... <!-- Agrega las debilidades aquí --></p>
+            <p class="card-text">Machos: ${getGenderCount(pokemonData, 'male')}</p>
+            <p class="card-text">Hembras: ${getGenderCount(pokemonData, 'female')}</p>
+          </div>
+          <div class="tab-pane fade" id="statsCollapse" role="tabpanel" aria-labelledby="statsTab">
+            <!-- Estadísticas en barras de progreso -->
+            ${pokemonData.stats.map(stat => `
+              <p class="card-text">${stat.stat.name}: ${stat.base_stat}</p>
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: ${stat.base_stat}%;" aria-valuenow="${stat.base_stat}" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            `).join('')}
+          </div>
+          <div class="tab-pane fade" id="evolutionCollapse" role="tabpanel" aria-labelledby="evolutionTab">
+            <p class="card-text">Evolución: ... <!-- Agrega información sobre la evolución aquí --></p>
+          </div>
+          <div class="tab-pane fade" id="movesCollapse" role="tabpanel" aria-labelledby="movesTab">
+            <p class="card-text">Movimientos: ... <!-- Agrega información sobre los movimientos aquí --></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
   
       detailsOverlay.style.display = 'flex';
+
+    const tabs = document.querySelectorAll('.nav-link');
+          tabs.forEach(tab => {
+          tab.addEventListener('click', (event) => {
+          event.preventDefault();
+    const targetId = event.target.getAttribute('href');
+          tabs.forEach(otherTab => {
+          otherTab.classList.remove('active');
+          });
+          tab.classList.add('active');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+          tabPanes.forEach(pane => {
+          pane.classList.remove('show', 'active');
+          });
+          document.querySelector(targetId).classList.add('show', 'active');
+        });
+    });
 
    
   
     }
 
+    function getGenderCount(pokemonData, gender) {
+      const genderData = pokemonData.gender_rate;
+        if (genderData === -1) {
+          return 'Sin género';
+        } else {
+      const malePercent = (genderData / 8) * 100;
+      const femalePercent = 100 - malePercent;
+          return gender === 'male' ? `${malePercent.toFixed(2)}%` : `${femalePercent.toFixed(2)}%`;
+        }
+      }
     
     function drawPokedex() {
       const pokemonDataArray = [];
@@ -90,7 +165,7 @@
         //Agregue esto para selecionar el orden por abecedario o por tipo
         const sortSelector = document.getElementById('sortSelector');
         sortSelector.addEventListener('change', () => {
-          const selectedValue = sortSelector.value;
+        const selectedValue = sortSelector.value;
           
           if (selectedValue === 'name') {
             pokemonDataArray.sort((a, b) => a.name.localeCompare(b.name));
@@ -114,36 +189,36 @@
 
   
       for (let i = 1; i <= 150; i++) {
-        fetchPokemonData(i)
-          .then(pokemonData => {
+            fetchPokemonData(i)
+            .then(pokemonData => {
             pokemonDataArray.push(pokemonData);
             if (pokemonDataArray.length === 150) {
-              createCardsAfterFetch();
+            createCardsAfterFetch();
             }
           });
       }
     }
 
-    searchButton.addEventListener('click', () => {
+      searchButton.addEventListener('click', () => {
       const pokemonName = searchInput.value.toLowerCase();
-      fetchPokemonData(pokemonName)
+        fetchPokemonData(pokemonName)
         .then(pokemonData => {
-          pokedexContainer.innerHTML = '';
-          createPokemonCard(pokemonData);
+        pokedexContainer.innerHTML = '';
+        createPokemonCard(pokemonData);
         })
         .catch(error => {
-          console.error('Error al buscar el Pokémon:', error);
+        console.error('Error al buscar el Pokémon:', error);
         });
     });
   
 
     function fetchPokemonData(identifier) {
-      return fetch(`https://pokeapi.co/api/v2/pokemon/${identifier}`)
+        return fetch(`https://pokeapi.co/api/v2/pokemon/${identifier}`)
         .then(response => {
-          if (!response.ok) {
-            throw new Error('Pokémon no encontrado');
-          }
-          return response.json();
+        if (!response.ok) {
+        throw new Error('Pokémon no encontrado');
+        }
+        return response.json();
         });
     }
 
