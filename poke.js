@@ -15,7 +15,7 @@
   
       const pokemonImage = document.createElement('img');
       pokemonImage.classList.add('pokemon-image');
-      pokemonImage.src = pokemonData.sprites.front_default;
+      pokemonImage.src = pokemonData.sprites.other.home.front_default;
       
       const pokemonNumber = document.createElement('p');
       pokemonNumber.classList.add('pokemon-number');
