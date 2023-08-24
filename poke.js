@@ -2,6 +2,8 @@
     const pokedexContainer = document.querySelector('.pokedex');
     const detailsOverlay = document.querySelector('.pokemon-details-overlay');
     const detailsCard = document.querySelector('.pokemon-details-card');
+    const searchButton = document.getElementById('searchButton');
+    const searchInput = document.getElementById('pokemonSearchInput');
   
     function fetchPokemonData(pokemonId) {
       return fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)  
@@ -80,6 +82,7 @@
         pokemonDataArray.sort((a, b) => a.id - b.id);
         pokemonDataArray.forEach(pokemonData => createPokemonCard(pokemonData));
       }
+
   
       for (let i = 1; i <= 150; i++) {
         fetchPokemonData(i)
@@ -90,6 +93,29 @@
             }
           });
       }
+    }
+
+    searchButton.addEventListener('click', () => {
+      const pokemonName = searchInput.value.toLowerCase();
+      fetchPokemonData(pokemonName)
+        .then(pokemonData => {
+          pokedexContainer.innerHTML = '';
+          createPokemonCard(pokemonData);
+        })
+        .catch(error => {
+          console.error('Error al buscar el Pokémon:', error);
+        });
+    });
+  
+
+    function fetchPokemonData(identifier) {
+      return fetch(`https://pokeapi.co/api/v2/pokemon/${identifier}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Pokémon no encontrado');
+          }
+          return response.json();
+        });
     }
    
  
