@@ -17,14 +17,36 @@
             <div class="input-group">
                 <input id="pokemonSearchInput" class="form-control" type="text" placeholder="Buscar Pokémon">
                 <button id="searchButton" class="btn btn-primary">Search</button>
+                
             </div>
         </div>
     </div>
+
+    <div class="container mt-3">
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <div class="input-group">
+            <select id="sortSelector" class="form-select">
+              <option value="default">Ordenar por</option>
+              <option value="name">A-Z</option>
+              <option value="type">Por tipo</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
     <div class="pokedex"></div>
     <div class="pokemon-details-overlay">
-    <div class="pokemon-details-card"></div>
+    <div class="pokemon-details-card">
+    </div>
+    
   </div>
 
+ 
   <script src="poke.js"></script>
 
 
