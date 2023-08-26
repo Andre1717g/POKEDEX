@@ -39,15 +39,15 @@
     function getColorByType(type) {
         switch (type) {
           case 'grass':
-            return '#78C850';
+            return '#7AC74C';
           case 'fire':
-            return '#F08030';
+            return '#E25822';
           case 'water':
             return '#6890F0';
           case 'bug':
             return '#A8B820';
           case 'normal':
-            return '#A8A878';
+            return '#A8A77A';
           case 'poison':
             return '#A040A0';
           case 'electric':
@@ -56,6 +56,29 @@
             return '#E0C068';
           case 'fairy':
             return '#EE99AC';
+          case 'psychic':
+            return '#F95587';
+          case 'fighting':
+          return '#FF0000';
+          case 'steel':
+            return '#B7B7CE';
+          case 'dragon':
+            return '#6F35FC';
+          case 'ice':
+            return '#96D9D6';
+          case 'poison':
+            return '#A33EA1';
+          case 'ground':
+            return '#E2BF65';
+          case 'flying':
+            return '#A98FF3';
+          case 'rock':
+            return '#B6A136';
+          case 'ghost':
+            return '#735797';
+          case 'dark':
+            return '#705746';
+          
           
           default:
             return '#68A090'; 
@@ -158,7 +181,6 @@
     function drawPokedex() {
       const pokemonDataArray = [];
       
-  
       // Función para crear las tarjetas una vez se hayan obtenido los datos de todos los Pokémon
       function createCardsAfterFetch() {
         pokemonDataArray.sort((a, b) => a.id - b.id);
@@ -171,7 +193,8 @@
           
           if (selectedValue === 'name') {
             pokemonDataArray.sort((a, b) => a.name.localeCompare(b.name));
-          } else if (selectedValue === 'type') {
+          } 
+          else if (selectedValue === 'type') {
             pokemonDataArray.sort((a, b) => {
               const typeA = a.types[0].type.name;
               const typeB = b.types[0].type.name;
@@ -240,9 +263,6 @@
         });
     }
 
-    
-
-    
 
 
   return {
