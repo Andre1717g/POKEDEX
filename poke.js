@@ -201,6 +201,22 @@
       }
     }
 
+    searchInput.addEventListener('keydown', event => {
+      if (event.key === 'Enter') {
+        event.preventDefault(); // Evitar que el formulario se envíe (si lo hay)
+        const pokemonName = searchInput.value.toLowerCase();
+        
+        fetchPokemonData(pokemonName)
+          .then(pokemonData => {
+            pokedexContainer.innerHTML = '';
+            createPokemonCard(pokemonData);
+          })
+          .catch(error => {
+            console.error('Error al buscar el Pokémon:', error);
+          });
+      }
+    });
+
       searchButton.addEventListener('click', () => {
       const pokemonName = searchInput.value.toLowerCase();
         fetchPokemonData(pokemonName)
