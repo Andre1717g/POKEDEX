@@ -61,6 +61,8 @@
             return '#68A090'; 
         }
       }
+
+      
   
     function showDetails(pokemonData) {
       detailsCard.innerHTML = `
