@@ -354,37 +354,100 @@ detailsOverlay.style.display = 'flex';
       }
     }
 
-    searchInput.addEventListener('keydown', event => {
-      if (event.key === 'Enter') {
-        event.preventDefault(); // Evitar que el formulario se envíe (si lo hay)
-        const pokemonName = searchInput.value.toLowerCase();
-        
-        fetchPokemonData(pokemonName)
-          .then(pokemonData => {
-            pokedexContainer.innerHTML = '';
-            createPokemonCard(pokemonData);
-          })
-          .catch(error => {
-            console.error('Error al buscar el Pokémon:', error);
-          });
-      }
-    });
+//********************************************************************************************************************************* */
+    const errorMessagesContainer = document.getElementById('errorMessages');
 
-      searchButton.addEventListener('click', () => {
-      const pokemonName = searchInput.value.toLowerCase();
-        fetchPokemonData(pokemonName)
-        .then(pokemonData => {
+//*************************************************************************************************************************************** */
+searchButton.addEventListener('click', async () => {
+  const userInput = searchInput.value.trim();
+  errorMessagesContainer.textContent = ''; // Limpiar mensajes anteriores
+
+  if (userInput === '') {
+    displayErrorMessage('Por favor ingresa el nombre o número de un Pokémon.');
+    return;
+  }
+
+  try {
+    let pokemonData;
+    if (/^\d{1,3}$/.test(userInput)) {
+      const pokemonNumber = parseInt(userInput, 10);
+      if (pokemonNumber >= 1 && pokemonNumber <= 150) {
+        pokemonData = await fetchPokemonData(pokemonNumber);
         pokedexContainer.innerHTML = '';
         createPokemonCard(pokemonData);
-        
+      } else {
+        throw new Error('Número de Pokémon fuera del rango permitido.');
+      }
+    } else {
+      pokemonData = await fetchPokemonData(userInput.toLowerCase());
+      pokedexContainer.innerHTML = '';
+      createPokemonCard(pokemonData);
+    }
+    searchInput.value = ''; // Limpiar el input
+  } catch (error) {
+    console.error('Error al buscar el Pokémon:', error);
+    if (error.message === 'Pokémon no encontrado' || error.message === 'Número de Pokémon fuera del rango permitido.') {
+      displayErrorMessage('Pokémon no encontrado o número fuera de rango. Por favor, verifica la entrada.');
+      searchInput.value = ''; // Limpiar el input
+    }
+  }
+});
 
-        
-        })
-        .catch(error => {
-        console.error('Error al buscar el Pokémon:', error);
-        });
-    });
-  
+searchInput.addEventListener('keydown', async event => {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    const userInput = searchInput.value.trim();
+    errorMessagesContainer.textContent = ''; // Limpiar mensajes anteriores
+
+    if (userInput === '') {
+      displayErrorMessage('Por favor ingresa el nombre o número de un Pokémon.');
+      return;
+    }
+
+    try {
+      let pokemonData;
+      if (/^\d{1,3}$/.test(userInput)) {
+        const pokemonNumber = parseInt(userInput, 10);
+        if (pokemonNumber >= 1 && pokemonNumber <= 150) {
+          pokemonData = await fetchPokemonData(pokemonNumber);
+          pokedexContainer.innerHTML = '';
+          createPokemonCard(pokemonData);
+        } else {
+          throw new Error('Número de Pokémon fuera del rango permitido.');
+        }
+      } else {
+        pokemonData = await fetchPokemonData(userInput.toLowerCase());
+        pokedexContainer.innerHTML = '';
+        createPokemonCard(pokemonData);
+      }
+      searchInput.value = ''; // Limpiar el input
+    } catch (error) {
+      console.error('Error al buscar el Pokémon:', error);
+      if (error.message === 'Pokémon no encontrado' || error.message === 'Número de Pokémon fuera del rango permitido.') {
+        displayErrorMessage('Pokémon no encontrado o número fuera de rango. Por favor, verifica la entrada.');
+        searchInput.value = ''; // Limpiar el input
+      }
+    }
+  }
+});
+
+
+function displayErrorMessage(message) {
+  // Eliminar alerta anterior si existe
+  const existingErrorMessage = errorMessagesContainer.querySelector('.error-message');
+  if (existingErrorMessage) {
+    existingErrorMessage.remove();
+  }
+
+  const errorMessageElement = document.createElement('span');
+  errorMessageElement.classList.add('error-message', 'alert', 'alert-danger', 'alert-sm');
+  errorMessageElement.textContent = message;
+  errorMessagesContainer.appendChild(errorMessageElement);
+}
+
+
+//*************************************************************************************************************************************** */
+
 
     function fetchPokemonData(identifier) {
         return fetch(`https://pokeapi.co/api/v2/pokemon/${identifier}`)
