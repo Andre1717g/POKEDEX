@@ -10,6 +10,7 @@
       return fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)  
         .then(response => response.json());
     }
+    
   
     function createPokemonCard(pokemonData) {
       const pokemonCard = document.createElement('div');
@@ -31,8 +32,11 @@
       pokemonCard.appendChild(pokemonNumber);
       pokemonCard.appendChild(pokemonName);
   
-      pokemonCard.addEventListener('click', () => showDetails(pokemonData));
-  
+      pokemonCard.addEventListener('click', () => {
+        showDetails(pokemonData);
+        pokemonCard.classList.add('hidden-card'); // Ocultar la tarjeta principal
+      });
+    
       pokedexContainer.appendChild(pokemonCard);
     }
     
@@ -87,18 +91,72 @@
 
       
   
-    function showDetails(pokemonData) {
+      async function showDetails(pokemonData) {
+      searchButton.style.display = 'none';
+
+      const blurBackground = document.createElement('div');
+      blurBackground.classList.add('blur-background');
+      document.body.appendChild(blurBackground);
+
+
+      
+
+  // Mostrar detalles y superposición
+  
+  detailsCard.style.display = 'block';
+  detailsOverlay.style.display = 'flex';
       detailsCard.innerHTML = `
         <h2>${pokemonData.name}</h2>
         <p>Tipo: ${pokemonData.types.map(type => type.type.name).join(', ')}</p>
         <p>Altura: ${pokemonData.height / 10} m</p>
         <p>Peso: ${pokemonData.weight / 10} kg</p>
+
+
+        const movesByType = {};
+        pokemonData.moves.forEach(move => {
+          move.types.forEach(type => {
+            if (!movesByType[type.type.name]) {
+              movesByType[type.type.name] = [];
+            }
+            movesByType[type.type.name].push(move.move.name);
+          });
+        });
+
+
+        
         
       `;
 
+      
+
+      function closeDetails() {
+        // Restaurar elementos al cerrar los detalles
+        searchButton.style.display = 'block';
+      
+        // Ocultar detalles y superposición
+        detailsCard.style.display = 'none';
+        detailsOverlay.style.display = 'none';
+
+        const hiddenCard = document.querySelector('.hidden-card');
+  if (hiddenCard) {
+    hiddenCard.classList.remove('hidden-card');
+
+    
+  }
+      }
+
+      const evolutionHtml = await getEvolutionChainHTML(pokemonData.species.url);
+
+
+      
   detailsCard.innerHTML = `
-    <div class="card">
-      <div class="card-body">
+    <div class="card" >
+   
+    <div class="card-footer text-end" >
+    <button class="btn btn-primary" id="backButton">Regresar ala Pokedex</button>
+    </div>
+      <div class="card-body" >
+      
         <ul class="nav nav-tabs" id="pokemonTabs" role="tablist">
           <li class="nav-item" role="presentation">
             <a class="nav-link active" id="aboutTab" data-toggle="tab" href="#aboutCollapse" role="tab" aria-controls="aboutCollapse" aria-selected="true">About</a>
@@ -113,7 +171,7 @@
             <a class="nav-link" id="movesTab" data-toggle="tab" href="#movesCollapse" role="tab" aria-controls="movesCollapse" aria-selected="false">Movimientos del Pokémon</a>
           </li>
         </ul>
-        <div class="tab-content" id="pokemonTabContent">
+        <div class="tab-content" id="pokemonTabContent" >
           <div class="tab-pane fade show active" id="aboutCollapse" role="tabpanel" aria-labelledby="aboutTab">
             <p class="card-text">Tipo: ${pokemonData.types.map(type => type.type.name).join(', ')}</p>
             <p class="card-text">Altura: ${pokemonData.height / 10} m</p>
@@ -133,18 +191,88 @@
               </div>
             `).join('')}
           </div>
+
           <div class="tab-pane fade" id="evolutionCollapse" role="tabpanel" aria-labelledby="evolutionTab">
-            <p class="card-text">Evolución: ... <!-- Agrega información sobre la evolución aquí --></p>
-          </div>
+      <div class="evolution-chain-container">
+        <div class="evolution-chain">
+          ${evolutionHtml}
+        </div>
+      </div>
+    </div>
+         
+        
+         
           <div class="tab-pane fade" id="movesCollapse" role="tabpanel" aria-labelledby="movesTab">
-            <p class="card-text">Movimientos: ... <!-- Agrega información sobre los movimientos aquí --></p>
+        <div class="moves-list-container">
+          <ul class="moves-list">
+            ${pokemonData.moves.map(move => `<li class="move">${move.move.name}</li>`).join('')}
+          </ul>
+        </div>
+      </div>
+    </div>
+          
+          
+          
+          
+          
+
+          
+          
+          
+          
           </div>
         </div>
       </div>
     </div>
   `;
+
+        
+   ////////// funcion nuvea evolucion
+async function getEvolutionChainHTML(speciesUrl) {
+  const speciesResponse = await fetch(speciesUrl);
+  const speciesData = await speciesResponse.json();
   
-      detailsOverlay.style.display = 'flex';
+  const evolutionChainUrl = speciesData.evolution_chain.url;
+  const evolutionChainResponse = await fetch(evolutionChainUrl);
+  const evolutionChainData = await evolutionChainResponse.json();
+
+  return buildEvolutionHTML(evolutionChainData.chain);
+}
+
+function buildEvolutionHTML(evolutionData) {
+  let html = '';
+  while (evolutionData) {
+    const pokemonSpecies = evolutionData.species;
+    const spriteId = pokemonSpecies.url.split('/')[6];
+    const spriteUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${spriteId}.png`;
+
+    html += `
+      <div class="evolution-pokemon">
+        <img src="${spriteUrl}" alt="${pokemonSpecies.name}" class="evolution-sprite">
+        <p>${pokemonSpecies.name}</p>
+      </div>
+    `;
+
+    if (evolutionData.evolves_to.length > 0) {
+      html += '<div class="evolution-arrow">→</div>';
+    }
+    evolutionData = evolutionData.evolves_to[0];
+  }
+  return html;
+}
+  
+detailsOverlay.style.display = 'flex';
+
+
+
+
+//boton de regresooooooo
+     const backButton = document.getElementById('backButton');
+      backButton.addEventListener('click', () => {
+  // Llamar a la función para cerrar los detalles
+  closeDetails();
+});
+
 
     const tabs = document.querySelectorAll('.nav-link');
           tabs.forEach(tab => {
@@ -152,7 +280,8 @@
           event.preventDefault();
     const targetId = event.target.getAttribute('href');
           tabs.forEach(otherTab => {
-          otherTab.classList.remove('active');
+       
+            otherTab.classList.remove('active');
           });
           tab.classList.add('active');
     const tabPanes = document.querySelectorAll('.tab-pane');
@@ -246,6 +375,9 @@
         .then(pokemonData => {
         pokedexContainer.innerHTML = '';
         createPokemonCard(pokemonData);
+        
+
+        
         })
         .catch(error => {
         console.error('Error al buscar el Pokémon:', error);

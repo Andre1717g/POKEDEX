@@ -10,6 +10,8 @@ body {
   background-color: #f0f0f0;
 }
 
+
+
 .logo-container {
   
   position: absolute;
@@ -75,6 +77,7 @@ body {
   transition: transform 0.3s ease-in-out;
   overflow: visible; 
   position: relative;
+  
 }
 
 .pokemon-card:hover {
@@ -117,6 +120,7 @@ body {
 }
 
 .pokemon-details-overlay {
+  
   display: none;
   position: fixed;
   top: 0;
@@ -130,11 +134,74 @@ body {
 }
 
 .pokemon-details-card {
-  background-color: #fff;
+  
   padding: 20px;
   width: 80%;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
+.hidden {
+  display: none;
+}
 
+.hidden-card {
+  display: none;
+}
+
+
+.evolution-chain-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.evolution-chain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.evolution-pokemon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.evolution-pokemon img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid #333;
+  margin-bottom: 5px;
+}
+
+.evolution-arrow {
+  font-size: 24px;
+  margin: 0 10px;
+}
+
+
+
+
+
+
+.moves-list-container {
+  max-height: 200px; /* Altura máxima del contenedor */
+  overflow-y: auto; /* Agregar scroll vertical cuando el contenido excede la altura */
+}
+
+.moves-list {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 10px;
+  padding: 0; /* Eliminar el relleno del ul para evitar desplazamiento horizontal */
+  margin: 0; /* Eliminar el margen para evitar desplazamiento horizontal */
+  list-style: none;
+}
+
+.move {
+  padding: 5px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
