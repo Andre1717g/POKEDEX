@@ -187,10 +187,11 @@
             ${pokemonData.stats.map(stat => `
               <p class="card-text">${stat.stat.name}: ${stat.base_stat}</p>
               <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: ${stat.base_stat}%;" aria-valuenow="${stat.base_stat}" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar ${stat.base_stat >= 50 ? 'bg-success' : 'bg-danger'}" role="progressbar" style="width: ${stat.base_stat}%;" aria-valuenow="${stat.base_stat}" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
             `).join('')}
           </div>
+
 
           <div class="tab-pane fade" id="evolutionCollapse" role="tabpanel" aria-labelledby="evolutionTab">
       <div class="evolution-chain-container">
