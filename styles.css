@@ -10,7 +10,12 @@ body {
   background-color: #f0f0f0;
 }
 
-
+.ring {
+  width: 200px;
+  height: 200px;
+  height: 4px solid black;
+  border-radius: 50%;
+}
 
 .logo-container {
   
@@ -64,6 +69,7 @@ body {
 
 
 .pokemon-card {
+  font-family: 'Comic Sans', cursive;
   background-image: url('./img/pokeball1\ .png');
   background-size: cover;
   background-position: center;
@@ -97,6 +103,7 @@ body {
 
 }
 
+
 .pokemon-card:hover .pokemon-image {
   transform: scale(1.5);
   position: relative;
@@ -118,6 +125,35 @@ body {
     transform: translateX(0);
   }
 }
+
+.pokemon-number {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 14px;
+  color: rgb(0, 0, 0);
+  padding: 2px 5px;
+  border-radius: 5px;
+}
+
+
+.type-badge {
+  display: inline-block;
+  margin-right: 5px;
+  padding: 3px 8px;
+  border-radius: 20px;
+  font-size: 12px;
+  color: white;
+}
+
+.types-container {
+  margin-top: 5px;
+  background-color: rgba(255, 255, 255, 0.5); /* Fondo transparente */
+  border-radius: 10px;
+  padding: 5px;
+  display: inline-block;
+}
+
 
 .pokemon-details-overlay {
   

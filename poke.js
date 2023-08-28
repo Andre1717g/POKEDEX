@@ -5,6 +5,7 @@
     const searchButton = document.getElementById('searchButton');
     const searchInput = document.getElementById('pokemonSearchInput');
     
+    
   
     function fetchPokemonData(pokemonId) {
       return fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)  
@@ -27,15 +28,34 @@
       
       const pokemonName = document.createElement('h2');
       pokemonName.textContent = pokemonData.name;
+
+      const typesContainer = document.createElement('div'); // Nuevo contenedor de tipos
+  typesContainer.classList.add('types-container');
+
+ ////// AQUI LO DE LOS TIPO EN LA TARJETA PRINCIPAL
+  pokemonData.types.forEach(type => {
+    const typeBadge = document.createElement('div');
+    typeBadge.classList.add('type-badge');
+    typeBadge.textContent = type.type.name;
+    typeBadge.style.backgroundColor = getColorByType(type.type.name);
+    typesContainer.appendChild(typeBadge);
+  });
+
+
+
   
       pokemonCard.appendChild(pokemonImage);
       pokemonCard.appendChild(pokemonNumber);
       pokemonCard.appendChild(pokemonName);
+      /////
+      pokemonCard.appendChild(typesContainer);
   
       pokemonCard.addEventListener('click', () => {
         showDetails(pokemonData);
         pokemonCard.classList.add('hidden-card'); // Ocultar la tarjeta principal
       });
+
+      
     
       pokedexContainer.appendChild(pokemonCard);
     }
@@ -91,6 +111,7 @@
 
       
   
+     
       async function showDetails(pokemonData) {
       searchButton.style.display = 'none';
 
@@ -182,6 +203,7 @@
             <p class="card-text">Machos: ${getGenderCount(pokemonData, 'male')}</p>
             <p class="card-text">Hembras: ${getGenderCount(pokemonData, 'female')}</p>
           </div>
+          
           <div class="tab-pane fade" id="statsCollapse" role="tabpanel" aria-labelledby="statsTab">
             <!-- Estadísticas en barras de progreso -->
             ${pokemonData.stats.map(stat => `
@@ -192,7 +214,6 @@
             `).join('')}
           </div>
 
-
           <div class="tab-pane fade" id="evolutionCollapse" role="tabpanel" aria-labelledby="evolutionTab">
       <div class="evolution-chain-container">
         <div class="evolution-chain">
@@ -200,8 +221,6 @@
         </div>
       </div>
     </div>
-         
-        
          
           <div class="tab-pane fade" id="movesCollapse" role="tabpanel" aria-labelledby="movesTab">
         <div class="moves-list-container">
@@ -211,15 +230,6 @@
         </div>
       </div>
     </div>
-          
-          
-          
-          
-          
-
-          
-          
-          
           
           </div>
         </div>
@@ -339,6 +349,11 @@ detailsOverlay.style.display = 'flex';
       
           pokemonDataArray.forEach(pokemonData => createPokemonCard(pokemonData));
         });
+
+        const loader = document.getElementById('loader');
+  if (loader) {
+    loader.style.display = 'none';
+  }
       
       }
 
