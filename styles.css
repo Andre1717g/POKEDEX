@@ -10,6 +10,22 @@ body {
   background-color: #f0f0f0;
 }
 
+/* tarjeta */
+.small-card {
+  font-size: 14px; /* Ajusta el valor según tus necesidades */
+}
+
+.nav-tabs {
+  font-size: 12px; /* Ajusta el valor según tus necesidades */
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 .ring {
   width: 200px;
   height: 200px;

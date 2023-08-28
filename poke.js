@@ -170,72 +170,85 @@
 
 
       
-  detailsCard.innerHTML = `
-    <div class="card" >
-   
-    <div class="card-footer text-end" >
-    <button class="btn btn-primary" id="backButton">Regresar ala Pokedex</button>
-    </div>
-      <div class="card-body" >
-      
-        <ul class="nav nav-tabs" id="pokemonTabs" role="tablist">
-          <li class="nav-item" role="presentation">
-            <a class="nav-link active" id="aboutTab" data-toggle="tab" href="#aboutCollapse" role="tab" aria-controls="aboutCollapse" aria-selected="true">About</a>
-          </li>
-          <li class="nav-item" role="presentation">
-            <a class="nav-link" id="statsTab" data-toggle="tab" href="#statsCollapse" role="tab" aria-controls="statsCollapse" aria-selected="false">Estadísticas Básicas</a>
-          </li>
-          <li class="nav-item" role="presentation">
-            <a class="nav-link" id="evolutionTab" data-toggle="tab" href="#evolutionCollapse" role="tab" aria-controls="evolutionCollapse" aria-selected="false">Evolución del Pokémon</a>
-          </li>
-          <li class="nav-item" role="presentation">
-            <a class="nav-link" id="movesTab" data-toggle="tab" href="#movesCollapse" role="tab" aria-controls="movesCollapse" aria-selected="false">Movimientos del Pokémon</a>
-          </li>
-        </ul>
-        <div class="tab-content" id="pokemonTabContent" >
-          <div class="tab-pane fade show active" id="aboutCollapse" role="tabpanel" aria-labelledby="aboutTab">
-            <p class="card-text">Tipo: ${pokemonData.types.map(type => type.type.name).join(', ')}</p>
-            <p class="card-text">Altura: ${pokemonData.height / 10} m</p>
-            <p class="card-text">Peso: ${pokemonData.weight / 10} kg</p>
-            <p class="card-text">Especie: ${pokemonData.species.name}</p>
-            <p class="card-text">Habilidades: ${pokemonData.abilities.map(ability => ability.ability.name).join(', ')}</p>
-            <p class="card-text">Debilidades: ... <!-- Agrega las debilidades aquí --></p>
-            <p class="card-text">Machos: ${getGenderCount(pokemonData, 'male')}</p>
-            <p class="card-text">Hembras: ${getGenderCount(pokemonData, 'female')}</p>
-          </div>
+      detailsCard.innerHTML = `
+      <div class="card-container" style="max-height: 500px; overflow: hidden;">
+        <div class="card" style="max-width: 400px; height: 100%;"" >
+       
+        <div class="card-footer" style="max-width: 400px; margin: 0 auto;" >
+        <button class="btn btn-primary" id="backButton">Regresar ala Pokedex</button>
+        </div>
+          <div class="card-body " style="max-height: 500px; overflow: hidden;">
           
-          <div class="tab-pane fade" id="statsCollapse" role="tabpanel" aria-labelledby="statsTab">
-            <!-- Estadísticas en barras de progreso -->
-            ${pokemonData.stats.map(stat => `
-              <p class="card-text">${stat.stat.name}: ${stat.base_stat}</p>
-              <div class="progress">
-                <div class="progress-bar ${stat.base_stat >= 50 ? 'bg-success' : 'bg-danger'}" role="progressbar" style="width: ${stat.base_stat}%;" aria-valuenow="${stat.base_stat}" aria-valuemin="0" aria-valuemax="100"></div>
+            <ul class="nav nav-tabs" id="pokemonTabs" role="tablist">
+              <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="aboutTab" data-toggle="tab" href="#aboutCollapse" role="tab" aria-controls="aboutCollapse" aria-selected="true">About</a>
+              </li>
+              <li class="nav-item" role="presentation">
+                <a class="nav-link" id="statsTab" data-toggle="tab" href="#statsCollapse" role="tab" aria-controls="statsCollapse" aria-selected="false">Estadísticas Básicas</a>
+              </li>
+              <li class="nav-item" role="presentation">
+                <a class="nav-link" id="evolutionTab" data-toggle="tab" href="#evolutionCollapse" role="tab" aria-controls="evolutionCollapse" aria-selected="false">Evolución del Pokémon</a>
+              </li>
+              <li class="nav-item" role="presentation">
+                <a class="nav-link" id="movesTab" data-toggle="tab" href="#movesCollapse" role="tab" aria-controls="movesCollapse" aria-selected="false">Movimientos del Pokémon</a>
+              </li>
+            </ul>
+            <div class="tab-content" id="pokemonTabContent" >
+              <div class="tab-pane fade show active" id="aboutCollapse" role="tabpanel" aria-labelledby="aboutTab">
+                <p class="card-text">Tipo: ${pokemonData.types.map(type => type.type.name).join(', ')}</p>
+                <p class="card-text">Altura: ${pokemonData.height / 10} m</p>
+                <p class="card-text">Peso: ${pokemonData.weight / 10} kg</p>
+                <p class="card-text">Especie: ${pokemonData.species.name}</p>
+                <p class="card-text">Habilidades: ${pokemonData.abilities.map(ability => ability.ability.name).join(', ')}</p>
+                <p class="card-text">Debilidades: ... <!-- Agrega las debilidades aquí --></p>
+                <p class="card-text">Machos: ${getGenderCount(pokemonData, 'male')}</p>
+                <p class="card-text">Hembras: ${getGenderCount(pokemonData, 'female')}</p>
               </div>
-            `).join('')}
-          </div>
-
-          <div class="tab-pane fade" id="evolutionCollapse" role="tabpanel" aria-labelledby="evolutionTab">
-      <div class="evolution-chain-container">
-        <div class="evolution-chain">
-          ${evolutionHtml}
-        </div>
-      </div>
-    </div>
-         
-          <div class="tab-pane fade" id="movesCollapse" role="tabpanel" aria-labelledby="movesTab">
-        <div class="moves-list-container">
-          <ul class="moves-list">
-            ${pokemonData.moves.map(move => `<li class="move">${move.move.name}</li>`).join('')}
-          </ul>
-        </div>
-      </div>
-    </div>
-          
+              <div class="tab-pane fade" id="statsCollapse" role="tabpanel" aria-labelledby="statsTab">
+                <!-- Estadísticas en barras de progreso -->
+                ${pokemonData.stats.map(stat => `
+                  <p class="card-text">${stat.stat.name}: ${stat.base_stat}</p>
+                  <div class="progress">
+                    <div class="progress-bar ${stat.base_stat >= 50 ? 'bg-success' : 'bg-danger'}" role="progressbar" style="width: ${stat.base_stat}%;" aria-valuenow="${stat.base_stat}" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                `).join('')}
+              </div>
+    
+    
+              <div class="tab-pane fade" id="evolutionCollapse" role="tabpanel" aria-labelledby="evolutionTab">
+          <div class="evolution-chain-container">
+            <div class="evolution-chain">
+              ${evolutionHtml}
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  `;
+             
+            
+            
+              <div class="tab-pane fade" id="movesCollapse" role="tabpanel" aria-labelledby="movesTab">
+            <div class="moves-list-container">
+              <ul class="moves-list">
+                ${pokemonData.moves.map(move => `<li class="move">${move.move.name}</li>`).join('')}
+              </ul>
+            </div>
+          </div>
+        </div>
+              
+              
+              
+              
+              
+    
+              
+              
+              
+              
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      `;
 
         
    ////////// funcion nuvea evolucion
