@@ -171,12 +171,9 @@
 
       
       detailsCard.innerHTML = `
-      <div class="card-container" style="max-height: 500px; overflow: hidden;">
-        <div class="card" style="max-width: 400px; height: 100%;"" >
-       
-        <div class="card-footer" style="max-width: 400px; margin: 0 auto;" >
-        <button class="btn btn-primary" id="backButton">Regresar ala Pokedex</button>
-        </div>
+      <div class="card-container" style="max-height: 500px; overflow: hidden;  ">
+        <div class="card" style="max-width: 450px; height: 100%;"  >
+      
           <div class="card-body " style="max-height: 500px; overflow: hidden;">
           
             <ul class="nav nav-tabs" id="pokemonTabs" role="tablist">
@@ -184,13 +181,13 @@
                 <a class="nav-link active" id="aboutTab" data-toggle="tab" href="#aboutCollapse" role="tab" aria-controls="aboutCollapse" aria-selected="true">About</a>
               </li>
               <li class="nav-item" role="presentation">
-                <a class="nav-link" id="statsTab" data-toggle="tab" href="#statsCollapse" role="tab" aria-controls="statsCollapse" aria-selected="false">Estadísticas Básicas</a>
+                <a class="nav-link" id="statsTab" data-toggle="tab" href="#statsCollapse" role="tab" aria-controls="statsCollapse" aria-selected="false">Estadísticas</a>
               </li>
               <li class="nav-item" role="presentation">
-                <a class="nav-link" id="evolutionTab" data-toggle="tab" href="#evolutionCollapse" role="tab" aria-controls="evolutionCollapse" aria-selected="false">Evolución del Pokémon</a>
+                <a class="nav-link" id="evolutionTab" data-toggle="tab" href="#evolutionCollapse" role="tab" aria-controls="evolutionCollapse" aria-selected="false">Evolución</a>
               </li>
               <li class="nav-item" role="presentation">
-                <a class="nav-link" id="movesTab" data-toggle="tab" href="#movesCollapse" role="tab" aria-controls="movesCollapse" aria-selected="false">Movimientos del Pokémon</a>
+                <a class="nav-link" id="movesTab" data-toggle="tab" href="#movesCollapse" role="tab" aria-controls="movesCollapse" aria-selected="false">Movimientos</a>
               </li>
             </ul>
             <div class="tab-content" id="pokemonTabContent" >
@@ -241,8 +238,11 @@
     
               
               
+       
               
-              
+              </div>
+              <div class="card-footer" style="max-width: auto; margin: bottom;" >
+              <button class="btn btn-primary" id="backButton">Regresar ala Pokedex</button>
               </div>
             </div>
           </div>
@@ -331,7 +331,7 @@ detailsOverlay.style.display = 'flex';
         }
       }
     
-    function drawPokedex() {
+    function drawPokedex(){
       const pokemonDataArray = [];
       const cardsPerLoad = 10;
       let cardsLoaded = 0;
@@ -339,6 +339,7 @@ detailsOverlay.style.display = 'flex';
       
       ////////////PARA SOLO MOSTRAR 1 POKEMONEES AL INICIO
       function createCardsAfterFetch() {
+        pokemonDataArray.sort((a, b) => a.id - b.id);
         const endIndex = cardsLoaded + cardsPerLoad;
         for (let i = cardsLoaded; i < endIndex; i++) {
           if (pokemonDataArray[i]) {
@@ -354,8 +355,19 @@ detailsOverlay.style.display = 'flex';
           const lastCard = document.querySelector('.pokemon-card:last-child');
           lastCard.scrollIntoView({behavior: 'smooth', block: 'start'});
         }
-      
 
+        
+      
+        // const lastNewCard = document.querySelector('.pokemon-card:nth-last-child(-n+' + cardsPerLoad + ')');
+
+        // // Realiza el desplazamiento suavemente hacia el último Pokémon recién agregado
+        // if (lastNewCard) {
+        //   lastNewCard.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        // }
+
+        
+
+        
         
 
         //Agregue esto para selecionar el orden por abecedario o por tipo
@@ -375,8 +387,10 @@ detailsOverlay.style.display = 'flex';
           } else {
             
             pokemonDataArray.sort((a, b) => a.id - b.id);
+          
           }
-      
+          
+
           pokedexContainer.innerHTML = ''; // Limpiar el contenedor antes de ordenar
       
           pokemonDataArray.forEach(pokemonData => createPokemonCard(pokemonData));
@@ -389,6 +403,7 @@ detailsOverlay.style.display = 'flex';
       
       }
 
+      
   
       for (let i = 1; i <= 150; i++) {
             fetchPokemonData(i)
@@ -402,7 +417,8 @@ detailsOverlay.style.display = 'flex';
 
       const loadMoreButton = document.getElementById('loadMoreButton');
   loadMoreButton.addEventListener('click', createCardsAfterFetch);
-    }
+}
+
 
 //********************************************************************************************************************************* */
     const errorMessagesContainer = document.getElementById('errorMessages');
