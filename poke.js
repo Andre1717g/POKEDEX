@@ -333,11 +333,30 @@ detailsOverlay.style.display = 'flex';
     
     function drawPokedex() {
       const pokemonDataArray = [];
+      const cardsPerLoad = 10;
+      let cardsLoaded = 0;
+    
       
-      // Función para crear las tarjetas una vez se hayan obtenido los datos de todos los Pokémon
+      ////////////PARA SOLO MOSTRAR 1 POKEMONEES AL INICIO
       function createCardsAfterFetch() {
-        pokemonDataArray.sort((a, b) => a.id - b.id);
-        pokemonDataArray.forEach(pokemonData => createPokemonCard(pokemonData));
+        const endIndex = cardsLoaded + cardsPerLoad;
+        for (let i = cardsLoaded; i < endIndex; i++) {
+          if (pokemonDataArray[i]) {
+            createPokemonCard(pokemonDataArray[i]);
+          }
+        }
+        cardsLoaded = endIndex;
+
+        if (cardsLoaded >= pokemonDataArray.length) {
+          const loadButton = document.getElementById('loadMoreButton');
+          loadButton.style.display = 'none';
+        } else{
+          const lastCard = document.querySelector('.pokemon-card:last-child');
+          lastCard.scrollIntoView({behavior: 'smooth', block: 'start'});
+        }
+      
+
+        
 
         //Agregue esto para selecionar el orden por abecedario o por tipo
         const sortSelector = document.getElementById('sortSelector');
@@ -364,9 +383,9 @@ detailsOverlay.style.display = 'flex';
         });
 
         const loader = document.getElementById('loader');
-  if (loader) {
-    loader.style.display = 'none';
-  }
+        if (loader) {
+         loader.style.display = 'none';
+        }
       
       }
 
@@ -380,6 +399,9 @@ detailsOverlay.style.display = 'flex';
             }
           });
       }
+
+      const loadMoreButton = document.getElementById('loadMoreButton');
+  loadMoreButton.addEventListener('click', createCardsAfterFetch);
     }
 
 //********************************************************************************************************************************* */
