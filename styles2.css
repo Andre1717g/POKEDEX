@@ -1,7 +1,6 @@
-body {
+body  {
     position: relative;
-    background-image: url('./img/f.png'); /* Ruta a tu imagen de fondo */
-    background-size: cover;
+   background-image: url(./img/fn.jpg);
     background-repeat: no-repeat;
     background-position: center center;
     font-family: Arial, sans-serif;
@@ -10,13 +9,16 @@ body {
     min-height: 100vh;
 }
 
+
+
+
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #333;
+    background-color: #ff656a;
     color: white;
-    padding: 10px;
+    padding: 2px;
 }
 
 .navbar-logo {
@@ -30,8 +32,8 @@ body {
 
 .navbar-logo img {
     margin-left: 70px;
-    width: 100px;
-    height: auto;
+    width: 140px;
+    height: 120px;
 }
 
 .navbar-menu {
@@ -63,14 +65,20 @@ body {
 }
 
 .content {
-    display: flex;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+
+    backdrop-filter: blur(10px); 
     justify-content: space-between;
+    align-items: center;
     padding: 50px;
 }
 .content-left {
-    margin-top: 150px;
-    margin-left: 150px; /* Ajustar el margen izquierdo para mover hacia la derecha */
+    flex: 1;
+    padding: 20px;
+    margin-top: 70px;
+    margin-left: 20px; /* Ajustar el margen izquierdo para mover hacia la derecha */
 }
+
 
 .content-left h1,
 .content-left p,
@@ -93,12 +101,13 @@ body {
     justify-content: center;
     align-items: flex-start; /* Alinear hacia arriba */
     flex-direction: column; /* Cambiar la dirección del contenido a vertical */
-    padding-left: 50px; /* Espacio a la izquierda para centrar */
+    padding-left: 520px; /* Espacio a la izquierda para centrar */
 }
 
 .content-right img {
     max-width: 100%;
-    height: 300px;
-    margin-top: 60px;
-    margin-right: 270px;
+    height: 400px;
+    margin-top: -90px;
+    margin-right:70px;
 }
+

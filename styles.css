@@ -11,11 +11,12 @@ body {
   align-items: center;
   min-height: 100vh;
   background-color: #f0f0f0;
+  transition: opacity 0.5s ease;
 }
 
 /* tarjeta */
 .small-card {
-  font-size: 14px; /* Ajusta el valor según tus necesidades */
+  font-size: 17px; /* Ajusta el valor según tus necesidades */
 }
 
 .nav-tabs {
@@ -32,8 +33,8 @@ body {
 
 .boton-r {
   text-align: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: -23px;
+  margin-bottom: 50px;
 }
 
 
@@ -54,20 +55,59 @@ body {
   border-radius: 50%;
 }
 
-.logo-container {
-  
-  position: absolute;
-  top: 10px; /* Ajusta la distancia desde la parte superior */
-  left: 15%; /* Coloca el logo en el centro horizontal */
-  transform: translateX(-50%); /* Centra el logo horizontalmente */
+
+
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ff656a;
+  color: white;
+  padding: 2px;
 }
 
-.logo-image {
-  position: relative; /* Posición absoluta para superponerla sobre el título */
-  bottom: 35px; /* Ajusta la distancia desde la parte superior */
-  left: 450px; /* Ajusta la distancia desde la izquierda */
-  width: 200px; /* Ajusta el tamaño de la imagen */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  font-size: 24px;
+}
 
+.navbar-logo img {
+  margin-left: 70px;
+  width: 140px;
+  height: 120px;
+}
+
+.navbar-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.navbar-menu li {
+  margin-right: 120px;
+}
+
+.navbar-menu a {
+  text-decoration: none;
+  color: #fff;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+}
+
+.navbar-menu a:hover {
+  color: #ffcc00;
+  border-bottom: 2px solid #ffcc00;
+}
+
+.navbar-menu a.active {
+  color: #ffcc00;
+  border-bottom: 2px solid #ffcc00;
+  pointer-events: none;
 }
 
 .pokedex {
@@ -82,7 +122,7 @@ body {
 
 .input-group {
   position: relative;
-  top: 80px;
+  top: 20px;
   display: flex;
   align-items: center;
 }
@@ -104,9 +144,16 @@ body {
   border-radius: 10px;
 }
 
-
+/* para fondo transparente */
+.row-2{
+  margin-top: -90px;
+  border-radius: 5%;
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(5px);
+  margin-bottom: 50px; 
+}
 .pokemon-card {
-  
+  margin-top: 25px;
   font-family: 'Comic Sans', cursive;
   background-image: url('./img/pokeball1\ .png');
   background-size: cover;
@@ -205,14 +252,39 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 1;
+  
 }
 
 .pokemon-details-card {
   
   padding: 20px;
-  width: 80%;
+  width: 90%;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  max-height: 500px;
   text-align: center;
+  
+ 
+}
+
+
+.pokemon-details-sprite {
+  position: relative;
+  width: 70px; /* Ajusta el tamaño de la imagen según sea necesario */
+  height: 70px; /* Ajusta el tamaño de la imagen según sea necesario */
+  margin: -0px auto 0;
+  overflow: hidden;
+  
+
+}
+
+.pokemon-details-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .hidden {
@@ -255,12 +327,6 @@ body {
   margin: 0 10px;
 }
 
-/* buscador */
-/* .error-messages {
-  margin-top: 5px;
-  font-size: 12px;
-  color: red;
-} */
 
 
 .error-message {
@@ -269,8 +335,6 @@ body {
   margin: 0;
   display: block;
 }
-
-
 
 
 
