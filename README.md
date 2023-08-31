@@ -1,5 +1,8 @@
 # POKEDEX
 
+![titulo](https://github.com/Andre1717g/POKEDEX/assets/117502426/a4a5db97-8166-4a7d-bd3e-4af50f4d3434)
+
+
 ¡Bienvenido a la Pokédex!
 
 Trabajo realizado para la materia Tecnicas de Progrmacion para Internet (TPI)
@@ -18,17 +21,25 @@ Habilidades y Debilidaes: Se muestran las habilidades naturales del Pokémon y l
 Movimientos: Una lista completa de los movimientos que el Pokémon hace.
 
                                                       INICIO DE LA WEB
-![Captura de pantalla 2023-08-30 173651](https://github.com/Andre1717g/POKEDEX/assets/117502426/4e4ac475-ac52-4f54-9038-4e68a75bae3c)
+![Captura de pantalla 2023-08-30 212739](https://github.com/Andre1717g/POKEDEX/assets/117502426/92ee1b16-3670-4129-88c8-ee46ae50f86f)
+
 
                                                        POKEDEX
- ![Captura de pantalla 2023-08-30 173704](https://github.com/Andre1717g/POKEDEX/assets/117502426/f471461b-5696-4b9c-84cd-a3931784a5b7)
- ![Captura de pantalla 2023-08-30 173716](https://github.com/Andre1717g/POKEDEX/assets/117502426/3ef9e0c8-72a0-4f26-a453-ad144b4bd408)
+  ![Captura de pantalla 2023-08-30 212752](https://github.com/Andre1717g/POKEDEX/assets/117502426/481c2a8b-d055-42a6-9b7c-4f3514ea1f87)
 
-  ![Captura de pantalla 2023-08-30 173722](https://github.com/Andre1717g/POKEDEX/assets/117502426/9c9151e2-0161-4c89-94a3-57f954b113d8)
+  ![Captura de pantalla 2023-08-30 212805](https://github.com/Andre1717g/POKEDEX/assets/117502426/c5fb5b41-bbcb-4f19-9604-1b71f54b3aa6)
 
- ![Captura de pantalla 2023-08-30 173729](https://github.com/Andre1717g/POKEDEX/assets/117502426/2b5cd2f7-ff02-43e6-be66-07016bb15f14)
+  ![Captura de pantalla 2023-08-30 212811](https://github.com/Andre1717g/POKEDEX/assets/117502426/ea5508f3-a766-4027-9d7d-bad8ae388cc7)
 
- ![Captura de pantalla 2023-08-30 173734](https://github.com/Andre1717g/POKEDEX/assets/117502426/5e81ef6a-e3b7-4b98-addd-507854fd18db)
+  ![Captura de pantalla 2023-08-30 212821](https://github.com/Andre1717g/POKEDEX/assets/117502426/68750fe1-ba7a-403a-9b4c-f47ccd69cf3d)
+
+  ![Captura de pantalla 2023-08-30 212828](https://github.com/Andre1717g/POKEDEX/assets/117502426/ac6e7479-5966-467d-ba5c-1aee85e8d776)
+
+
+
+
+
+ 
 
 
 
