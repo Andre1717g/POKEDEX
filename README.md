@@ -1,6 +1,4 @@
-# POKEDEX
-
-![titulo](https://github.com/Andre1717g/POKEDEX/assets/117502426/a4a5db97-8166-4a7d-bd3e-4af50f4d3434)
+# POKEDE
 
 
 ¡Bienvenido a la Pokédex!
