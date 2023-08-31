@@ -62,7 +62,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #ff656a;
+  background-color: rgba(0, 0, 2, 0.5);
   color: white;
   padding: 2px;
 }
